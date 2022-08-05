@@ -37,6 +37,10 @@ export const productToFormValuesMapper = (product) => {
 }
 
 export const formValuesToCreateProductMapper = (values, viewType) => {
+  console.log(
+    "==========formValuesToCreateProductMapper======values======>",
+    values
+  )
   // Simple product
   if (viewType === SINGLE_PRODUCT_VIEW) {
     values.variants = [
@@ -71,7 +75,9 @@ export const formValuesToCreateProductMapper = (values, viewType) => {
   }
 
   return {
+    strapiId: values.strapiId,
     title: values.title,
+    subtitle: values.subtitle,
     handle: values.handle,
     status: values.status || "published",
     description: values.description,
@@ -101,6 +107,7 @@ export const formValuesToCreateProductMapper = (values, viewType) => {
 export const formValuesToUpdateProductMapper = (values) => {
   return {
     title: values.title,
+    subtitle: values.subtitle,
     handle: values.handle,
     status: values.status,
     description: values.description,

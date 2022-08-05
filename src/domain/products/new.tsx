@@ -26,12 +26,13 @@ const NewProductPage = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = async (data, viewType) => {
+    console.log("========onSubmit===data==============>", data)
     setIsLoading(true)
 
     const images = data.images
       .filter((img) => img.url.startsWith("blob"))
       .map((img) => img.nativeFile)
-
+    console.log("========onSubmit===images==============>", images)
     let uploadedImgs = []
     if (images.length > 0) {
       uploadedImgs = await Medusa.uploads
@@ -46,16 +47,29 @@ const NewProductPage = () => {
           return
         })
     }
+
+    console.log(
+      "=============uploadedImgs====NewData=============>",
+      data.images,
+      uploadedImgs
+    )
+
     const newData = {
       ...data,
       images: consolidateImages(data.images, uploadedImgs),
     }
 
+    // newData["strapiId"] = 1
     createProduct.mutate(formValuesToCreateProductMapper(newData, viewType), {
       onSuccess: ({ product }) => {
+        console.log(
+          "======createProduct.mutate=======product=========>",
+          product
+        )
         setIsLoading(false)
         notification("Success", "Product was succesfully created", "success")
         navigate(`/a/products/${product.id}`)
+        // navigate(`/a/products`)
       },
       onError: (error) => {
         setIsLoading(false)

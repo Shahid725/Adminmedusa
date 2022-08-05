@@ -19,6 +19,7 @@ const defaultProduct = {
   id: "",
   thumbnail: 0,
   title: "",
+  subtitle: "",
   handle: "",
   description: "",
   sku: "",
@@ -68,11 +69,13 @@ export const ProductFormProvider = ({
   const [hasImagesChanged, setHasImagesChanged] = React.useState(false)
 
   const appendImage = (image) => {
+    console.log(image,"======appendImage======>",images)
     setHasImagesChanged(true)
     setImages([...images, image])
   }
 
   const removeImage = (image) => {
+    console.log(image,"======removeImage======>",images)
     setHasImagesChanged(true)
     const tmp = images.filter((img) => img.url !== image.url)
     setImages(tmp)
@@ -114,6 +117,7 @@ export const ProductFormProvider = ({
   }, [product])
 
   const handleSubmit = (values) => {
+    console.log("===========handleSubmit==============images========before onSubmit==============>",images)
     onSubmit(
       { ...trimValues(values), images, variants, options: productOptions },
       viewType

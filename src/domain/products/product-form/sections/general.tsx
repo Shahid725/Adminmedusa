@@ -88,6 +88,18 @@ const General = ({ showViewOptions = true, isEdit = false, product }) => {
             })}
           />
           <Input
+            id="tagline"
+            label="Tag Line"
+            name="subtitle"
+            placeholder="Best of Brand, Good for heart..."
+            required
+            ref={register({
+              required: "Tag Line is required",
+              minLength: 1,
+              pattern: /(.|\s)*\S(.|\s)*/,
+            })}
+          />
+          <Input
             tooltipContent="Handles are human friendly unique identifiers that are appropriate for URL slugs."
             label="Handle"
             name="handle"

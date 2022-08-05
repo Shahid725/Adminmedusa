@@ -30,11 +30,12 @@ const EditProductPage = ({ id }) => {
   const [submitting, setSubmitting] = useState(false)
 
   const onSubmit = async (data) => {
+    console.log("========onSubmit===data==============>", data)
     setSubmitting(true)
     const images = data.images
       .filter((img) => img.url.startsWith("blob"))
       .map((img) => img.nativeFile)
-
+    console.log("========onSubmit===images==============>", images)
     let uploadedImgs = []
     if (images.length > 0) {
       uploadedImgs = await Medusa.uploads
@@ -49,6 +50,11 @@ const EditProductPage = ({ id }) => {
           return
         })
     }
+    console.log(
+      "=============uploadedImgs=================>",
+      data.images,
+      uploadedImgs
+    )
 
     const newData = {
       ...data,

@@ -15,9 +15,15 @@ type ProductFormProps = {
 
 const ProductForm = ({ product, isEdit = false }: ProductFormProps) => {
   const { isVariantsView } = useProductForm()
+  console.log("====>", isVariantsView)
   const { store } = useAdminStore()
   const currencyCodes = store?.currencies.map((currency) => currency.code)
-
+  console.log(
+    "----------->",
+    !isVariantsView,
+    !isEdit,
+    !isVariantsView && !isEdit
+  )
   return (
     <>
       <div>
@@ -28,7 +34,7 @@ const ProductForm = ({ product, isEdit = false }: ProductFormProps) => {
           <Variants isEdit={isEdit} product={product} />
         </div>
       )}
-      {!isVariantsView && !isEdit && (
+      {/* {!isVariantsView && !isEdit && (
         <div className="mt-large">
           <Prices
             currencyCodes={currencyCodes}
@@ -36,16 +42,20 @@ const ProductForm = ({ product, isEdit = false }: ProductFormProps) => {
             defaultAmount={1000}
           />
         </div>
+      )} */}
+      {isEdit && (
+        <>
+          <div className="mt-large">
+            <Images />
+          </div>
+          <div className="mt-large">
+            <StockAndInventory />
+          </div>
+          <div className="mt-large">
+            <RawJSON data={product} title="Raw product" />
+          </div>
+        </>
       )}
-      <div className="mt-large">
-        <Images />
-      </div>
-      <div className="mt-large">
-        <StockAndInventory />
-      </div>
-      <div className="mt-large">
-        <RawJSON data={product} title="Raw product" />
-      </div>
     </>
   )
 }

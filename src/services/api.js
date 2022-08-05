@@ -200,6 +200,7 @@ export default {
 
   products: {
     create(product) {
+      console.log("=======product======>",product)
       const path = `/admin/products`
       return medusaRequest("POST", path, product)
     },
